@@ -1,23 +1,54 @@
-import React from 'react'
+import React, {useState, useEffect} from "react"
+import axios from "axios"
 import Card from "./Card"
 
-const arrayOfObjects = [
-    {bookingOption:"Enkelresa Stockholm-Visby, andra klass" , price: "kr" , description:"En resa till Visby med tillgång till godisautomat och toalett"},
-    {bookingOption:"Enkelresa Visby-Stockholm, andra klass" , price: "250kr" , description:"En resa till Stockholm med tillgång till godisautomat och toalett"},
-    {bookingOption:"Tur och retur Visby-Stockholm, Stockholm-Visby, andra klass" , price: "480kr" , description:"En resa till Stockholm och tillbaka med tillgång till godisautomat och toalett"},
-    {bookingOption:"Tur och retur Stockholm-Visby, Visby-Stockholm, andra klass" , price: "480kr" , description:"En resa till Visby och tillbaka med tillgång till godisautomat och toalett"},
-    {bookingOption:"Enkelresa Visby-Stockholm, första klass" , price: "750kr" , description:"En resa till Visby med tillgång till soldäck, lunchbuffé och öppen bar"},
-    {bookingOption:"Enkelresa Stockholm-Visby , första klass" , price: "750kr" , description:"En resa till Visby med tillgång till soldäck, lunchbuffé och öppen bar"},
-    {bookingOption:"Tur och retur Visby-Stockholm, Stockholm-Visby, första klass" , price: "1400kr" , description:"En resa till Stockholm och tillbaka med tillgång till soldäck, lunchbuffé och öppen bar"},
-    {bookingOption:"Tur och retur Stockholm-Visby, Visby-Stockholm, första klass" , price: "1400kr" , description:"En resa till Visby och tillbaka med tillgång till soldäck, lunchbuffé och öppen bar"}
-]
+
+
+
 function CardList() {
+
+    const [trips, setTrips] = useState([]);
+    const [loadPage, setLoadPage] = useState(2);
+    //const [responseData, setResponseData] = useState([])
+
+    useEffect(()=>{
+        //console.log("from useEffect", loadPage)
+        const fetchTrips= async()=>{
+            const response =  await axios.get(`http://localhost:1337/trips?_limit=${loadPage}`)        
+            console.log(response)
+            setTrips(response.data)
+        } 
+        fetchTrips()
+
+}, [loadPage])
+ 
+    function loadMore() {
+        console.log("length of trip array", trips.length)
+         
+        let dynamicPage = loadPage +2;
+        console.log("load more", loadPage)
+        setLoadPage(dynamicPage)
+        console.log(loadPage)
+    }
+
+    function loadLess() {
+        let dynamicPage2 = loadPage -2;
+        console.log("load less", loadPage)
+        setLoadPage(dynamicPage2)
+        console.log(loadPage)
+    }
+
     return (
-        <div className="flex flex-wrap justify-start">
-            {arrayOfObjects.map( (trip)=> {
+        <div >
+            {trips.map( (trip)=> {
                 return(
-                    <Card {...trip.bookingOption} {...trip.price}/>
+                    <Card key={trip.id} image={trip.img} name={trip.name} price={trip.price} description= {trip.description}/>
             )})}
+
+                { (trips.lenght >loadPage || trips.length === loadPage) ?
+            <button onClick={loadMore}>Se flera</button>
+            :
+            <button onClick={loadLess}>Se färre</button> }
         </div>
     )
 }

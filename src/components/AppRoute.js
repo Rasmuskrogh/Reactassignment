@@ -1,23 +1,26 @@
 import React from 'react'
-import {Route, BrowserRouter as Router,} from  "react-router-dom"
+import {Route, BrowserRouter as Router, Switch} from  "react-router-dom"
 import CardList from "./CardList";
-import Form from "./Form";
 import Menu from "./Menu";
 import Login from "./Login";
 import Home from "./Home";
 import View from "./View";
+import Register from "./Registration";
+import CreateTrip from "./CreateTrip";
 
 function AppRoute() {
     return (
         <>
           <Router>
             <Menu />
+            <Switch>
+            <Route path="/register" component={Register}/>
             <Route path="/" exact component={Home}/>
-            <Route path="/Form" component={Form}/>
-            <Route path="/CardList" component={CardList}/>
-            <Route path="/Login" component={Login}/>
-            <Route path="/View" component={View}/>
-
+            <Route path="/cardList" component={CardList}/>
+            <Route path="/login" component={Login}/>
+            <Route path="/view" component={View}/>
+            <Route path="/create" component={CreateTrip}/>
+            </Switch>
           </Router>  
         </>
     )
