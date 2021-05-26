@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Modal from 'react-modal';
 import axios from "axios";
 
-function Card({name, price, description, image}) {
-
+function Card({tripId, name, price, description, image}) {
     const initialValues = {
         name:"",
         time:"",
@@ -12,9 +11,17 @@ function Card({name, price, description, image}) {
 
     const [modalIsOpen, setIsOpen] =useState(false);
     const [formValues, setFormValues] = useState(initialValues);
+    const [userId, setUserId] = useState(null);
+
+    useEffect(()=>{
+        const userId = localStorage.getItem("userId")
+        setUserId(userId)
+    },[])
+
 
     const customStyles = {
         content : {
+          background            : 'rgba(59, 130, 246, 0.6',
           top                   : '50%',
           left                  : '50%',
           right                 : 'auto',
@@ -44,7 +51,9 @@ function Card({name, price, description, image}) {
             const response = await axios.post("http://localhost:1337/bookings", {
                 name:formValues.name,
                 time:formValues.time,
-                mobile:Number(formValues.mobile)
+                mobile:Number(formValues.mobile),
+               // userId:,
+               // tripId:
             })
             console.log(response)
         }
@@ -54,16 +63,16 @@ function Card({name, price, description, image}) {
     }
 
     return ( 
-        <div className="max-w-xs rounded overflow-hidden shadow-lg my-2 m-4">
-            <img src={`http://localhost:1337${image.formats.small.url}`} alt="picture of a gotlandsboat"/>
+        <div className="max-w-xs rounded overflow-hidden shadow-lg my-2 m-4 bg-gray-400">
+            <img src={`http://localhost:1337${image.url}`} alt="picture of a gotlandsboat"/>
             <div class="px-6 py-4">
-                <div className="font-bold text-xl mb-2">{name}</div>
+                <h3 className="font-bold text-xl mb-2">{name}</h3>
                 <p className="text-grey-darker text-base">{description}</p>
             </div>
             <div className="px-6 py-4">
                 <span className="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2">{price}</span> 
             </div>
-            <button onClick={openModal}>Boka resa</button>
+            <button className="bg-black text-white font-bold px-5 py-2 rounded focus:outline-none shadow hover:bg-blue-700 transition-colors mb-4" onClick={openModal}>Boka resa</button>
             
             
             <Modal
@@ -77,10 +86,10 @@ function Card({name, price, description, image}) {
             <button onClick={closeModal}>close</button>
             <div>Boka tid genom att fylla i de olika fälten och tyck sedan på skicka</div>
             <form onSubmit= {handleOnSubmit}>
-              <input type="text" name="name" value={formValues.name} onChange={handleOnChange}/>
-              <input type="text" name="time" value={formValues.time} onChange={handleOnChange}/>
-              <input type="number" name="mobile" value={formValues.mobile} onChange={handleOnChange}/> 
-              <button type="submit">Skicka</button>
+              <input type="text" name="name" placeholder="Namn" value={formValues.name} onChange={handleOnChange}/>
+              <input type="text" name="time" placeholder="Datum" value={formValues.time} onChange={handleOnChange}/>
+              <input type="number" name="mobile" placeholder="Mobiltelefonnummer" value={formValues.mobile} onChange={handleOnChange}/> 
+              <button type="submit">Boka</button>
             </form>
           </Modal>
         

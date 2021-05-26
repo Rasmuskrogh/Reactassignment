@@ -23,12 +23,12 @@ function CreateTrip() {
     }
 
     function onHandleSubmit(e) {
-        e.preventDefault()
+       
 
         axios.post("http://localhost:1337/trips", {
-            name:formValues.name,
-            description:formValues.description,
-            price:formValues.price
+            Name:formValues.name,
+            Description:formValues.description,
+            Price:formValues.price
         }).then((res)=>{
             console.log(res.data)
 
@@ -37,7 +37,7 @@ function CreateTrip() {
 
             data.append("ref", "trip")
             data.append("refId", res.data.id)
-            data.append("field", "img") 
+            data.append("field", "Img") 
 
             axios.post("http://localhost:1337/upload", data) 
             .then((image)=>console.log(image))

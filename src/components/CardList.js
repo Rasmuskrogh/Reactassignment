@@ -31,24 +31,18 @@ function CardList() {
         console.log(loadPage)
     }
 
-    function loadLess() {
-        let dynamicPage2 = loadPage -2;
-        console.log("load less", loadPage)
-        setLoadPage(dynamicPage2)
-        console.log(loadPage)
-    }
 
     return (
-        <div >
+        <div className= "font-sans min-h-screen antialiased bg-gray-200 pt-5 pb-5 " >
             {trips.map( (trip)=> {
                 return(
-                    <Card key={trip.id} image={trip.img} name={trip.name} price={trip.price} description= {trip.description}/>
+                    <Card key={trip.id} tripId={trip.id} image={trip.Img} name={trip.Name} price={trip.Price} description= {trip.Description}/>
             )})}
 
                 { (trips.lenght >loadPage || trips.length === loadPage) ?
-            <button onClick={loadMore}>Se flera</button>
+            <button className="bg-black text-white font-bold px-5 py-2 rounded focus:outline-none shadow hover:bg-blue-700 transition-colors mt-4 mb-4" onClick={loadMore}>Visa fler resor</button>
             :
-            <button onClick={loadLess}>Se färre</button> }
+            <p><strong>Alla alternativ visas</strong></p>}
         </div>
     )
 }
