@@ -31,7 +31,7 @@ function Menu() {
         <div className="text-sm lg:flex-grow">
             <Link to="/" className="block mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">Hem</Link>
             <Link to="/cardList" className="block mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">Boka resa</Link>
-            <Link to="/view" className="block mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">Mina resor</Link>  
+            <Link to="/bookings" className="block mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4">Mina resor</Link>  
             <Link to="/create" className="block mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4 text-m">Skapa resa</Link>
             <Link className="block mt-4 lg:inline-block lg:mt-0 text-teal-lighter hover:text-white mr-4 text-m" onClick={clearLocalStorage}>Logga ut</Link>
             </div>

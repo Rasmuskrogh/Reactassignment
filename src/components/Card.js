@@ -11,12 +11,13 @@ function Card({tripId, name, price, description, image}) {
 
     const [modalIsOpen, setIsOpen] =useState(false);
     const [formValues, setFormValues] = useState(initialValues);
-    const [userId, setUserId] = useState(null);
+    const [userId, setUserId] = useState(localStorage.getItem("userId"));
+    const [token, setToken] = useState(localStorage.getItem("jwt"));
 
-    useEffect(()=>{
+    /* useEffect(()=>{
         const userId = localStorage.getItem("userId")
         setUserId(userId)
-    },[])
+    },[]) */
 
 
     const customStyles = {
@@ -52,8 +53,12 @@ function Card({tripId, name, price, description, image}) {
                 name:formValues.name,
                 time:formValues.time,
                 mobile:Number(formValues.mobile),
-               // userId:,
-               // tripId:
+                users_permissions_user:userId,
+               // tripId: 
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
             })
             console.log(response)
         }
@@ -65,12 +70,12 @@ function Card({tripId, name, price, description, image}) {
     return ( 
         <div className="max-w-xs rounded overflow-hidden shadow-lg my-2 m-4 bg-gray-400">
             <img src={`http://localhost:1337${image.url}`} alt="picture of a gotlandsboat"/>
-            <div class="px-6 py-4">
+            <div className="px-6 py-4">
                 <h3 className="font-bold text-xl mb-2">{name}</h3>
                 <p className="text-grey-darker text-base">{description}</p>
             </div>
             <div className="px-6 py-4">
-                <span className="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2">{price}</span> 
+                <span className="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2"> Pris: {price}kr</span> 
             </div>
             <button className="bg-black text-white font-bold px-5 py-2 rounded focus:outline-none shadow hover:bg-blue-700 transition-colors mb-4" onClick={openModal}>Boka resa</button>
             

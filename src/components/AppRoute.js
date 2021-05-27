@@ -4,9 +4,9 @@ import CardList from "./CardList";
 import Menu from "./Menu";
 import Login from "./Login";
 import Home from "./Home";
-import View from "./View";
 import Register from "./Registration";
 import CreateTrip from "./CreateTrip";
+import Bookings from "./Bookings";
 
 function AppRoute() {
     return (
@@ -18,8 +18,8 @@ function AppRoute() {
             <Route path="/" exact component={Home}/>
             <Route path="/cardList" component={CardList}/>
             <Route path="/login" component={Login}/>
-            <Route path="/view" component={View}/>
             <Route path="/create" component={CreateTrip}/>
+            <Route path="/bookings" component={Bookings}/>
             </Switch>
           </Router>  
         </>

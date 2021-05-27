@@ -31,6 +31,7 @@ function Login() {
     
 
     function handleOnSubmit(e) {
+
         e.preventDefault();
 
         axios
@@ -46,8 +47,9 @@ function Login() {
             //setJwt(response.data.jwt)
             localStorage.setItem("jwt", response.data.jwt);
             localStorage.setItem("userId", response.data.user.id)
+            //localStorage.setItem("username", response.data.user.username);
             setUsername(response.data.user.username);
-            history.push("/home")
+            history.push("/")
 
 
            // const JWT=localStorage.getItem("jwt")

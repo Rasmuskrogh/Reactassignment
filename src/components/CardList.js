@@ -9,6 +9,7 @@ function CardList() {
 
     const [trips, setTrips] = useState([]);
     const [loadPage, setLoadPage] = useState(2);
+    const [token, setToken] =useState(localStorage.getItem("jwt"))
     //const [responseData, setResponseData] = useState([])
 
     useEffect(()=>{

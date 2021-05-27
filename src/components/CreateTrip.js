@@ -1,5 +1,5 @@
-import axios from 'axios'
-import React, {useState} from 'react'
+import axios from 'axios';
+import React, {useState} from 'react';
 
 
 function CreateTrip() {
@@ -10,8 +10,8 @@ function CreateTrip() {
         price:0
     }
 
-    const [formValues, setFormValues] = useState(initialValues)
-    const [fileData, setFileData] = useState()
+    const [formValues, setFormValues] = useState(initialValues);
+    const [fileData, setFileData] = useState();
    
 
     function handleOnChange(e) {
