@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 
 function CreateTrip() {
@@ -12,7 +12,7 @@ function CreateTrip() {
 
     const [formValues, setFormValues] = useState(initialValues);
     const [fileData, setFileData] = useState();
-   
+    const [jwt, setJwt] = useState("")
 
     function handleOnChange(e) {
         setFormValues({...formValues, [e.target.name]: e.target.value})
@@ -46,13 +46,21 @@ function CreateTrip() {
          }).catch((err)=> {
             console.log(err)
         })
-    
     }
+
+    useEffect(()=>{
+        const JWT = localStorage.getItem("jwt")
+        setJwt(JWT)
+        //window.location.reload()
+
+    }, [])
+    
 
  
     return ( 
         
     <body>
+        { jwt ?
         <div className="font-sans min-h-screen antialiased bg-gray-200 pt-24 pb-5">
             <div className="flex flex-col justify-center sm:w-96 sm:m-auto mx-5 mb-5 space-y-8">
                 <h1 className="font-bold text-center text-4xl text-blue-900">Skapa resa</h1>
@@ -78,6 +86,7 @@ function CreateTrip() {
                 </form>
              </div>
         </div>
+        : <div> You do not have access to this page</div>}
     </body>    
     )
 }

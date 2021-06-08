@@ -46,7 +46,8 @@ function Login() {
 
             //setJwt(response.data.jwt)
             localStorage.setItem("jwt", response.data.jwt);
-            localStorage.setItem("userId", response.data.user.id)
+            localStorage.setItem("userId", response.data.user.id);
+            localStorage.setItem("admin", response.data.user.admin);
             //localStorage.setItem("username", response.data.user.username);
             setUsername(response.data.user.username);
             history.push("/")
@@ -60,6 +61,7 @@ function Login() {
            // console.log("jwt state", jwt)
 
             console.log("user data", response.data);
+            console.log(response)
             
             window.location.reload();
             

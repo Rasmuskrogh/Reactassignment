@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {useHistory} from "react-router-dom";
 import Login from "./Login";
 import axios from "axios";
 
@@ -8,14 +7,15 @@ function Registration() {
     const initialValue = {
         username:"",
         email:"",
-        password:""
+        password:"",
+        admin:false
     }
 
     const [registerValues, setRegisterValues] = useState(initialValue);
     const [username, setUsername] = useState("");
     const [login, setLogin] = useState(false);
     const [error, setError] = useState("");
-    const history = useHistory();
+
 
     function handleOnChange(e) {
         
@@ -29,11 +29,11 @@ function Registration() {
         axios.post("http://localhost:1337/auth/local/register", {
                 username: registerValues.username,
                 email: registerValues.email,
-                password: registerValues.password
+                password: registerValues.password,
+                admin: false
             })
             .then( (e)=> {
                 if(e.data.user)
-               // history.push("/login")
                 setLogin(true)
              })
             .catch((err)=> {setError(err.response.data.message[0].messages[0].message)})

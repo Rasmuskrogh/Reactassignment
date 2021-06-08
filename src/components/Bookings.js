@@ -7,6 +7,7 @@ function Bookings() {
     const [bookings, setBookings] = useState([])
     const [userId, setUserId] = useState(localStorage.getItem("userId"))
     const [token, setToken] =useState(localStorage.getItem("jwt"))
+    const [jwt, setJwt] = useState("")
 
     useEffect(()=>{
 
@@ -19,6 +20,8 @@ function Bookings() {
             })
             
             setBookings(response.data)
+            const JWT = localStorage.getItem("jwt")
+            setJwt(JWT)
         }
 
         fetchData()
@@ -26,14 +29,16 @@ function Bookings() {
 
     return (
         <div>
-            <h1>Mina resor:</h1>
+            { jwt ?
+                <div>
+                    <h1>Mina resor:</h1>
 
-            {bookings.map((booking)=>{
-                return(
-                    <Booking key={booking.id} name={booking.name} time={booking.time} mobile={booking.mobile}/>
-            )})}
-
-            
+                    {bookings.map((booking)=>{
+                        return(
+                            <Booking key={booking.id} name={booking.name} time={booking.time} mobile={booking.mobile} price={booking.price}/>
+                    )})}
+                </div>
+            : <div> You do not have access to this page</div>}
         </div>
     )
 }
