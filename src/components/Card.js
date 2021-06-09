@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Modal from 'react-modal';
 import axios from "axios";
 
-function Card({name, price, description, image}) {
+function Card({name, price, description, image, tripId}) {
     const initialValues = {
         name:"",
         time:"",
@@ -12,21 +12,17 @@ function Card({name, price, description, image}) {
     const newValues = {
         name:"",
         description:"",
-        price:0
-    }
+        price:0,
+        tripId:""}
 
     const [modalIsOpen, setIsOpen] =useState(false);
     const [formValues, setFormValues] = useState(initialValues);
     const [changeValues, setChangeValues] = useState(newValues);
     const [userId, setUserId] = useState(localStorage.getItem("userId"));
     const [token, setToken] = useState(localStorage.getItem("jwt"));
-    const [admin, setAdmin] =useState(false)
+    const [admin, setAdmin] =useState(localStorage.getItem("admin"))
 
-     useEffect(()=>{
-        const ADMIN = localStorage.getItem("admin")
-        setAdmin(ADMIN)
-    },[]) 
-
+     
 
     const customStyles = {
         content : {
@@ -83,10 +79,10 @@ function Card({name, price, description, image}) {
 
     function handleOnSubmitEdit (e) {
         e.preventDefault();
-        axios.put("http://localhost:1337/trips", {
+        axios.put("`http://localhost:1337/trips/{tripId}`", {
             Name:changeValues.name,
             Description:changeValues.description,
-            Price:changeValues.price
+            Price:changeValues.price,
         }).then((res)=>{
             console.log(res.data)
         
@@ -110,7 +106,8 @@ function Card({name, price, description, image}) {
             <div className="px-6 py-4">
                 <span className="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2"> Pris: {price}kr</span> 
             </div>
-            { admin ? <>
+ 
+            {(admin==="true" ) && <div>
                 <form onSubmit={handleOnSubmitEdit} className="border-black">
                 <input type="text" value={changeValues.name} onChange={ handleOnChangeEdit} name="name" placeholder="Change name" className="border-black"></input>
                 <input type="text" value={changeValues.description} onChange={ handleOnChangeEdit} name="description" placeholder="Change description" className="border-black"></input>
@@ -119,7 +116,7 @@ function Card({name, price, description, image}) {
             <button type="submit" className="bg-green-500 text-white font-bold px-5 py-2 rounded focus:outline-none shadow hover:bg-blue-700 transition-colors mb-4" >Redigera resa</button>
             </form>
             <button className="bg-red-600 text-white font-bold px-5 py-2 rounded focus:outline-none shadow hover:bg-blue-700 transition-colors mb-4" onClick={RemoveCard}>Ta bort resa</button>
-            </>: <div></div>}
+            </div> }
             <button className="bg-black text-white font-bold px-5 py-2 rounded focus:outline-none shadow hover:bg-blue-700 transition-colors mb-4" onClick={openModal}>Boka resa</button>
 
             
