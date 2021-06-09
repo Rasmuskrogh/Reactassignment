@@ -9,8 +9,15 @@ function Card({name, price, description, image}) {
         mobile:null
     }
 
+    const newValues = {
+        name:"",
+        description:"",
+        price:0
+    }
+
     const [modalIsOpen, setIsOpen] =useState(false);
     const [formValues, setFormValues] = useState(initialValues);
+    const [changeValues, setChangeValues] = useState(newValues);
     const [userId, setUserId] = useState(localStorage.getItem("userId"));
     const [token, setToken] = useState(localStorage.getItem("jwt"));
     const [admin, setAdmin] =useState(false)
@@ -70,12 +77,27 @@ function Card({name, price, description, image}) {
         }
     }
 
-    function EditCard () {
-
+    function handleOnChangeEdit (e) {
+        setChangeValues({...changeValues, [e.target.name]: e.target.value})
     }
 
-    function RemoveCard () {
+    function handleOnSubmitEdit (e) {
+        e.preventDefault();
+        axios.put("http://localhost:1337/trips", {
+            Name:changeValues.name,
+            Description:changeValues.description,
+            Price:changeValues.price
+        }).then((res)=>{
+            console.log(res.data)
+        
+         }).catch((err)=> {
+            console.log(err)
+        })
+    }
 
+    function RemoveCard (e) {
+        e.prevent.default();
+        axios.delete("http://localhost:1337/trips")
     }
 
     return ( 
@@ -89,7 +111,13 @@ function Card({name, price, description, image}) {
                 <span className="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2"> Pris: {price}kr</span> 
             </div>
             { admin ? <>
-            <button className="bg-green-500 text-white font-bold px-5 py-2 rounded focus:outline-none shadow hover:bg-blue-700 transition-colors mb-4" onClick={EditCard}>Redigera resa</button>
+                <form onSubmit={handleOnSubmitEdit} className="border-black">
+                <input type="text" value={changeValues.name} onChange={ handleOnChangeEdit} name="name" placeholder="Change name" className="border-black"></input>
+                <input type="text" value={changeValues.description} onChange={ handleOnChangeEdit} name="description" placeholder="Change description" className="border-black"></input>
+                <input type="number" value={changeValues.price} onChange={ handleOnChangeEdit} name="price" placeholder="Change price" className="border-black"></input>
+                <br/>
+            <button type="submit" className="bg-green-500 text-white font-bold px-5 py-2 rounded focus:outline-none shadow hover:bg-blue-700 transition-colors mb-4" >Redigera resa</button>
+            </form>
             <button className="bg-red-600 text-white font-bold px-5 py-2 rounded focus:outline-none shadow hover:bg-blue-700 transition-colors mb-4" onClick={RemoveCard}>Ta bort resa</button>
             </>: <div></div>}
             <button className="bg-black text-white font-bold px-5 py-2 rounded focus:outline-none shadow hover:bg-blue-700 transition-colors mb-4" onClick={openModal}>Boka resa</button>
