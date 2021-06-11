@@ -12,8 +12,8 @@ function Card({name, price, description, image, tripId}) {
     const newValues = {
         name:"",
         description:"",
-        price:0,
-        tripId:""}
+        price:0
+    }
 
     const [modalIsOpen, setIsOpen] =useState(false);
     const [formValues, setFormValues] = useState(initialValues);
@@ -79,10 +79,10 @@ function Card({name, price, description, image, tripId}) {
 
     function handleOnSubmitEdit (e) {
         e.preventDefault();
-        axios.put("`http://localhost:1337/trips/{tripId}`", {
-            Name:changeValues.name,
-            Description:changeValues.description,
-            Price:changeValues.price,
+        axios.put(`http://localhost:1337/trips?trips.id=${tripId}`, {
+            name:changeValues.name,
+            description:changeValues.description,
+            price:changeValues.price,
         }).then((res)=>{
             console.log(res.data)
         
@@ -92,8 +92,8 @@ function Card({name, price, description, image, tripId}) {
     }
 
     function RemoveCard (e) {
-        e.prevent.default();
-        axios.delete("http://localhost:1337/trips")
+        e.prevent.default(e);
+        axios.delete(`http://localhost:1337/trips?trips.id=${tripId}`)
     }
 
     return ( 
