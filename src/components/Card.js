@@ -79,7 +79,7 @@ function Card({name, price, description, image, tripId}) {
 
     function handleOnSubmitEdit (e) {
         e.preventDefault();
-        axios.put(`http://localhost:1337/trips?trips.id=${tripId}`, {
+        axios.put(`http://localhost:1337/trips/${tripId}`, {
             name:changeValues.name,
             description:changeValues.description,
             price:changeValues.price,
@@ -92,8 +92,8 @@ function Card({name, price, description, image, tripId}) {
     }
 
     function RemoveCard (e) {
-        e.prevent.default(e);
-        axios.delete(`http://localhost:1337/trips?trips.id=${tripId}`)
+        e.preventDefault();
+        axios.delete(`http://localhost:1337/trips/${tripId}`)
     }
 
     return ( 
