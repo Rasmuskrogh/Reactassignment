@@ -7,6 +7,7 @@ import Home from "./Home";
 import Register from "./Registration";
 import CreateTrip from "./CreateTrip";
 import Bookings from "./Bookings";
+import Profile from "./Profile";
 
 function AppRoute() {
     return (
@@ -20,6 +21,7 @@ function AppRoute() {
             <Route path="/login" component={Login}/>
             <Route path="/create" component={CreateTrip}/>
             <Route path="/bookings" component={Bookings}/>
+            <Route path="/profile" component={Profile}/>
             </Switch>
           </Router>  
         </>
