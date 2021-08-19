@@ -9,11 +9,9 @@ function CardList() {
 
     const [trips, setTrips] = useState([]);
     const [loadPage, setLoadPage] = useState(2);
-    const [token, setToken] =useState(localStorage.getItem("jwt"))
-    //const [responseData, setResponseData] = useState([])
 
     useEffect(()=>{
-        //console.log("from useEffect", loadPage)
+
         const fetchTrips= async()=>{
             const response =  await axios.get(`http://localhost:1337/trips?_limit=${loadPage}`)        
             console.log(response)

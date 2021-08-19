@@ -12,7 +12,6 @@ function Login() {
 
     const [formValues, setFormValues]= useState(initialValues);
     const [error, setError]= useState("");
-    //const [authentication, setAuthentication]= useState(false);
     const [username, setUsername] = useState("")
     const [jwt, setJwt] = useState("")
     const history= useHistory();
@@ -44,21 +43,11 @@ function Login() {
             console.log("User profile", response.data.user);
             console.log("user token", response.data.jwt);
 
-            //setJwt(response.data.jwt)
             localStorage.setItem("jwt", response.data.jwt);
             localStorage.setItem("userId", response.data.user.id);
             localStorage.setItem("admin", response.data.user.admin);
-            //localStorage.setItem("username", response.data.user.username);
             setUsername(response.data.user.username);
             history.push("/")
-
-
-           // const JWT=localStorage.getItem("jwt")
-            //console.log(testJWT)
-
-            //setJwt(JWT)
-
-           // console.log("jwt state", jwt)
 
             console.log("user data", response.data);
             console.log(response)

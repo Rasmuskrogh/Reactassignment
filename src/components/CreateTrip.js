@@ -51,7 +51,6 @@ function CreateTrip() {
     useEffect(()=>{
         const JWT = localStorage.getItem("jwt")
         setJwt(JWT)
-        //window.location.reload()
 
     }, [])
     

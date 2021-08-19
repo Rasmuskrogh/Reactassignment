@@ -10,7 +10,6 @@ function Profile() {
 
     const initialValues2 = {
         username: ""
-        //heroku trigger
     }
 
     const [userId, setUserId] = useState(localStorage.getItem("userId"))
