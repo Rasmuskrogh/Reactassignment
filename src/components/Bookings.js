@@ -14,7 +14,7 @@ function Bookings() {
 
         console.log(userId)
         const fetchData = async ()=>{
-            const response = await axios.get(`${server}bookings?users_permissions_user.id=${userId}`, {
+            const response = await axios.get(`${server}/bookings?users_permissions_user.id=${userId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

@@ -14,7 +14,7 @@ function CardList() {
     useEffect(()=>{
 
         const fetchTrips= async()=>{
-            const response =  await axios.get(`${server}trips?_limit=${loadPage}`)        
+            const response =  await axios.get(`${server}/trips?_limit=${loadPage}`)        
             console.log(response)
             setTrips(response.data)
         } 

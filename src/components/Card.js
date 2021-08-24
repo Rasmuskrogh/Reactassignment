@@ -54,7 +54,7 @@ function Card({name, price, description, image, tripId}) {
         console.log(formValues)
         console.log(Number(formValues.mobile))
         try{
-            const response = await axios.post(`${server}bookings`, {
+            const response = await axios.post(`${server}/bookings`, {
                 name:formValues.name,
                 time:formValues.time,
                 mobile:Number(formValues.mobile),
@@ -94,7 +94,7 @@ function Card({name, price, description, image, tripId}) {
 
     function RemoveCard (e) {
         e.preventDefault();
-        axios.delete(`${server}${tripId}`)
+        axios.delete(`${server}/${tripId}`)
     }
 
     return ( 

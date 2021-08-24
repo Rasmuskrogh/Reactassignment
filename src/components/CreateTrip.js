@@ -8,7 +8,7 @@ function CreateTrip() {
     const initialValues = {
         name:"",
         description:"",
-        price:0
+        price:null
     }
 
     const [formValues, setFormValues] = useState(initialValues);
@@ -26,7 +26,7 @@ function CreateTrip() {
     function onHandleSubmit(e) {
        
 
-        axios.post(`${server}trips`, {
+        axios.post(`${server}/trips`, {
             Name:formValues.name,
             Description:formValues.description,
             Price:formValues.price
@@ -40,7 +40,8 @@ function CreateTrip() {
             data.append("refId", res.data.id)
             data.append("field", "Img") 
 
-            axios.post(`${server}upload`, data) 
+
+            axios.post(`${server}/upload`, data) 
             .then((image)=>console.log(image))
             .catch((error)=>console.log(error))
         
