@@ -41,7 +41,7 @@ function CreateTrip() {
             data.append("field", "Img") 
 
 
-            axios.post(`${server}/upload`, data) 
+            axios.post(`${server}/uploads`, data) 
             .then((image)=>console.log(image))
             .catch((error)=>console.log(error))
         
