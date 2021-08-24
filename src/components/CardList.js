@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react"
 import axios from "axios"
 import Card from "./Card"
+import {server} from "./Config"
 
 
 
@@ -13,7 +14,7 @@ function CardList() {
     useEffect(()=>{
 
         const fetchTrips= async()=>{
-            const response =  await axios.get(`http://localhost:1337/trips?_limit=${loadPage}`)        
+            const response =  await axios.get(`${server}trips?_limit=${loadPage}`)        
             console.log(response)
             setTrips(response.data)
         } 

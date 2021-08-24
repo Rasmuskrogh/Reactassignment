@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 import Booking from "./Booking";
+import {server} from "./Config"
 
 function Bookings() {
 
@@ -13,7 +14,7 @@ function Bookings() {
 
         console.log(userId)
         const fetchData = async ()=>{
-            const response = await axios.get(`http://localhost:1337/bookings?users_permissions_user.id=${userId}`, {
+            const response = await axios.get(`${server}bookings?users_permissions_user.id=${userId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

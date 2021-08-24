@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
+import {server} from "./Config"
 
 
 function CreateTrip() {
@@ -25,7 +26,7 @@ function CreateTrip() {
     function onHandleSubmit(e) {
        
 
-        axios.post("http://localhost:1337/trips", {
+        axios.post(`${server}trips`, {
             Name:formValues.name,
             Description:formValues.description,
             Price:formValues.price
@@ -39,7 +40,7 @@ function CreateTrip() {
             data.append("refId", res.data.id)
             data.append("field", "Img") 
 
-            axios.post("http://localhost:1337/upload", data) 
+            axios.post(`${server}upload`, data) 
             .then((image)=>console.log(image))
             .catch((error)=>console.log(error))
         

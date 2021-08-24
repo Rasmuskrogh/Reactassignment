@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Modal from 'react-modal';
 import axios from "axios";
+import {server} from "./Config"
 
 function Card({name, price, description, image, tripId}) {
     const initialValues = {
@@ -53,7 +54,7 @@ function Card({name, price, description, image, tripId}) {
         console.log(formValues)
         console.log(Number(formValues.mobile))
         try{
-            const response = await axios.post("http://localhost:1337/bookings", {
+            const response = await axios.post(`${server}bookings`, {
                 name:formValues.name,
                 time:formValues.time,
                 mobile:Number(formValues.mobile),
@@ -79,7 +80,7 @@ function Card({name, price, description, image, tripId}) {
 
     function handleOnSubmitEdit (e) {
         e.preventDefault();
-        axios.put(`http://localhost:1337/trips/${tripId}`, {
+        axios.put(`${server}/trips/${tripId}`, {
             name:changeValues.name,
             description:changeValues.description,
             price:changeValues.price,
@@ -93,12 +94,12 @@ function Card({name, price, description, image, tripId}) {
 
     function RemoveCard (e) {
         e.preventDefault();
-        axios.delete(`http://localhost:1337/trips/${tripId}`)
+        axios.delete(`${server}${tripId}`)
     }
 
     return ( 
         <div className="max-w-xs rounded overflow-hidden shadow-lg my-2 m-4 bg-gray-400">
-            <img src={`http://localhost:1337${image.url}`} alt="picture of a gotlandsboat"/>
+            <img src={`${server}${image.url}`} alt="picture of a gotlandsboat"/>
             <div className="px-6 py-4">
                 <h3 className="font-bold text-xl mb-2">{name}</h3>
                 <p className="text-grey-darker text-base">{description}</p>

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {useHistory} from "react-router-dom"
 import axios from "axios";
+import {server} from "./Config"
 
 function Login() {
 
@@ -34,7 +35,7 @@ function Login() {
         e.preventDefault();
 
         axios
-        .post ("http://localhost:1337/auth/local", {
+        .post (`${server}auth/local`, {
             identifier: formValues.username,
             password: formValues.password,
             email: formValues.email

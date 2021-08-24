@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Login from "./Login";
 import axios from "axios";
+import {server} from "./Config"
 
 function Registration() {
 
@@ -26,7 +27,7 @@ function Registration() {
 
     function handleOnSubmit(e) {
         e.preventDefault();
-        axios.post("http://localhost:1337/auth/local/register", {
+        axios.post(`${server}"auth/local/register`, {
                 username: registerValues.username,
                 email: registerValues.email,
                 password: registerValues.password,

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useHistory } from "react-router-dom"
+import {server} from "./Config"
 
 function Profile() {
 
@@ -23,7 +24,7 @@ function Profile() {
 
 
         const fetchData = async () => {
-            const response = await axios.get(`http://localhost:1337/users?id=${userId}`
+            const response = await axios.get(`${server}/users?id=${userId}`
 
             );
 
